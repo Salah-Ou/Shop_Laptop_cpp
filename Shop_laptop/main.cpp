@@ -136,13 +136,6 @@ public:
                 return true;
             }
         }
-
-        // gotoxy(33, 9);
-        // cout << "Loading";
-        // for (int i = 0; i < 9; i++) {
-        //     cout << ".";
-        //     Sleep(600);
-        // }
         gotoxy(32, 9);
         cout << "\033[1;31mLogin Failed!\033[0m\n";
         gotoxy(25, 11);
@@ -480,8 +473,8 @@ int main() {
     gotoxy(88, 0);
     string current_time = Time();
     cout << "\033[1;37m Current Time's : \033[1;36m" << current_time << "\033[1;37m";
-    usershop.sign_up(LoggedInUsername);
-    usershop.Login(LoggedInUsername);
+    // usershop.sign_up(LoggedInUsername);
+    // usershop.Login(LoggedInUsername);
     Laptop lp;
     int choice;
     while (true) {
