@@ -23,67 +23,79 @@ string Time() {
     return asctime(local);
 }
 
-void sign_up() {
-    system("cls");
-    gotoxy(88, 0);
-    string current_time = Time();
-    cout << "\033[1;37m Current Time's : \033[1;36m" << current_time << "\033[1;37m";
-    string username, password, confirm_password;
-    char ch;
-    password.clear();
-    gotoxy(20, 1);
-    for (int i = 0; i < 42; i++) {
-        cout << "\033[1;33m-";
-    }
-    cout << "\n";
-    gotoxy(38, 2);
-    cout << "SIGN UP\n";
-    gotoxy(20, 3);
-    for (int i = 0; i < 42; i++) {
-        cout << "-";
-    }
-    cout << "\n\033[0m";
-    gotoxy(22, 5);
-    cout << "\033[1;30mPlease Enter Your Username : \033[1;32m";
-    cin.ignore();
-    getline(cin, username);
-    gotoxy(22, 7);
-    cout << "\033[1;30mPlease Enter Your Password : ";
-    while ((ch = _getch()) != 13) { // Enter key
-        password += ch;
-        cout << "\033[1;32m*";
-    }
-    gotoxy(20, 8);
-    cout << "------------------------------------------";
-    gotoxy(22, 9);
-    cout << "\033[1;30mPlease Confirm Your Password : ";
-    while ((ch = _getch()) != 13) { // Enter key
-        confirm_password += ch;
-        cout << "\033[1;32m*";
-    }
-    gotoxy(20, 10);
-    cout << "------------------------------------------";
-    if (password == confirm_password) {
-        gotoxy(30, 12);
-        cout << "\033[1;32mRegistration Successful\033[0m\n";
-        gotoxy(25, 14);
-        system("pause");
-    } else {
-        gotoxy(30, 12);
-        cout << "\033[1;31mPasswords do not match!\033[0m\n";
-        gotoxy(25, 14);
-        system("pause");
-    }
-}
+class UserShop {
+public:
+    struct User {
+        string username;
+        string password;
+    };
+    vector<User> users;
 
-void Login() {
-    while (true) {
+    void sign_up(string& LoggedInUsername) {
+        sign:
         system("cls");
         gotoxy(88, 0);
         string current_time = Time();
         cout << "\033[1;37m Current Time's : \033[1;36m" << current_time << "\033[1;37m";
+        string username, password, confirm_password;
+        char ch;
+        password.clear();
+        gotoxy(20, 1);
+        for (int i = 0; i < 42; i++) {
+            cout << "\033[1;33m-";
+        }
+        cout << "\n";
+        gotoxy(38, 2);
+        cout << "SIGN UP\n";
+        gotoxy(20, 3);
+        for (int i = 0; i < 42; i++) {
+            cout << "-";
+        }
+        cout << "\n\033[0m";
+        gotoxy(22, 5);
+        cout << "\033[1;30mPlease Enter Your Username : \033[1;32m";
+        cin.ignore();
+        getline(cin, username);
+        gotoxy(22, 7);
+        cout << "\033[1;30mPlease Enter Your Password : ";
+        while ((ch = _getch()) != 13) { // Enter key
+            password += ch;
+            cout << "\033[1;32m*";
+        }
+        gotoxy(20, 8);
+        cout << "------------------------------------------";
+        gotoxy(22, 9);
+        cout << "\033[1;30mPlease Confirm Your Password : ";
+        while ((ch = _getch()) != 13) { // Enter key
+            confirm_password += ch;
+            cout << "\033[1;32m*";
+        }
+        gotoxy(20, 10);
+        cout << "------------------------------------------";
+        if (password == confirm_password) {
+            users.push_back({username, password});
+            gotoxy(30, 12);
+            cout << "\033[1;32mRegistration Successful\033[0m\n";
+            gotoxy(25, 14);
+            system("pause");
+        } else {
+            gotoxy(30, 12);
+            cout << "\033[1;31mPasswords do not match!\033[0m\n";
+            gotoxy(25, 14);
+            system("pause");
+            goto sign;
+        }
+    }
+
+    bool Login(string& LoggedInUsername) {
         string username, password;
         char ch;
+        
+        Login:
+        system("cls");
+        gotoxy(88, 0);
+        string current_time = Time();
+        cout << "\033[1;37m Current Time's : \033[1;36m" << current_time << "\033[1;37m";
         password.clear();
         gotoxy(20, 1);
         for (int i = 0; i < 42; i++) {
@@ -103,37 +115,41 @@ void Login() {
         getline(cin, username);
         gotoxy(22, 7);
         cout << "\033[1;30mPlease Enter Your Password : ";
-        while ((ch = _getch()) != 13) { // Enter key
+        while ((ch = _getch()) != 13) { 
             password += ch;
             cout << "\033[1;32m*";
         }
         cout << "\033[0m";
-        if (password == "12345") { // Example password check
-            gotoxy(33, 9);
-            cout << "Loading";
-            for (int i = 0; i < 9; i++) {
-                cout << ".";
-                Sleep(600);
-            }
-            gotoxy(33, 11);
-            cout << "\033[1;32mLogin Successful\033[0m\n";
-            gotoxy(25, 13);
-            system("pause");
-            break; // Exit the loop on successful login
-        } else {
-            gotoxy(33, 9);
-            cout << "Loading";
-            for (int i = 0; i < 9; i++) {
-                cout << ".";
-                Sleep(600);
-            }
-            gotoxy(33, 11);
-            cout << "\033[1;31mLogin Failed!\033[0m\n";
-            gotoxy(25, 13);
-            system("pause");
+        gotoxy(33, 9);
+        cout << "Loading";
+        for (int i = 0; i < 5; i++) {
+            cout << ".";
+            Sleep(600);
         }
+        for (const auto& user : users) {
+            if (user.username == username && user.password == password) {
+                gotoxy(32, 9);
+                cout << "\033[1;32mLogin successful!\033[0m\n";
+                LoggedInUsername = username;
+                gotoxy(25, 11);
+                system("pause");
+                return true;
+            }
+        }
+
+        // gotoxy(33, 9);
+        // cout << "Loading";
+        // for (int i = 0; i < 9; i++) {
+        //     cout << ".";
+        //     Sleep(600);
+        // }
+        gotoxy(32, 9);
+        cout << "\033[1;31mLogin Failed!\033[0m\n";
+        gotoxy(25, 11);
+        system("pause");
+        goto Login;
     }
-}
+};
 
 class Laptop {
 private :
@@ -459,11 +475,13 @@ void Laptop::print_receipt_laptop(){
 
 int main() {
     system("cls");
+    string LoggedInUsername ;
+    UserShop usershop ;
     gotoxy(88, 0);
     string current_time = Time();
     cout << "\033[1;37m Current Time's : \033[1;36m" << current_time << "\033[1;37m";
-    // sign_up();
-    // Login();
+    usershop.sign_up(LoggedInUsername);
+    usershop.Login(LoggedInUsername);
     Laptop lp;
     int choice;
     while (true) {
