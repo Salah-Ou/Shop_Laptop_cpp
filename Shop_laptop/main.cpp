@@ -334,7 +334,7 @@ void Laptop::modify_order() {
                 cout << "\033[1;33mEnter your new customer: \033[1;37m";
                 cin >> b.customer;
                 gotoxy(45, 7);
-                cout << "\033[1;33mEnter your new adress : \033[1;37m";
+                cout << "\033[1;33mEnter your new address : \033[1;37m";
                 cin.ignore();
                 getline(cin, b.adress);
                 gotoxy(45, 9);
