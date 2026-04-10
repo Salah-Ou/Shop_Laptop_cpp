@@ -1,55 +1,112 @@
-# 💰💻 Computer Store Management System 💻💰
-## 📌 Overview 
-This is a C++ program for managing a computer store's laptop inventory and customer orders.
-The system allows users to sign up, log in, browse available laptops, place orders, 
-modify or delete existing orders, and print receipts.
-## 🚀 Features 
-### 1. User Authentification
-- <strong> Sign Up : </strong> Create a new account with username and password.
-- <strong> Login : </strong> Secure login with password masking (shows asterisks).
+# 💻 Computer Store Management System
 
-### 2. Laptop Management
-- Displays a comprehensive list of 15 different laptop models with details including :
-    -  Brand
-    - Model name
-    - Processor specifications
-    - RAM
-    - Storage
-    - Graphics card
-    - Display
-    - Price
+A terminal-based C++ application for managing a laptop store — take orders, browse inventory, modify or delete records, save them to a file, and encrypt/decrypt the output with a Caesar cipher.
 
-### 3. Order Management
-- <strong> Take New Order : </strong>
-    - Collect customer information (name, address, phone).
-    - Select laptop by ID.
-    - Specify budget.
-- <strong> Modify Orders : </strong> Update existing order details.
-- <strong> Delete Orders : </strong> Remove orders from the system.
-- <strong> Print Receipts : </strong> Generate detailed purchase receipts.
+---
 
-### 4. UI Features
-- Color-coded console interface.
-- Real-time clock display.
-- Loading animations.
-- Input validation.
+## ✨ Features
 
-## 🔎 Technical Details
-### 1. Data Structures
-- Uses `vector` to store order information.
-- Arrays to store laptop inventory data.
+| # | Feature| Description |
+|:---:|:---------:|:-------------:|
+| 1 | **Take Order** | Collect customer name, address, phone, date, laptop selection and budget |
+| 2 | **Display Laptops** | Browse all 15 laptops with full specs (CPU, RAM, GPU, storage, display, price) |
+| 3 | **Delete Order** | Remove an existing order by customer name, with undo support |
+| 4 | **Modify Order** | Update any field of an existing order |
+| 5 | **Display Order** | Look up and print a receipt by phone number |
+| 6 | **Save to File** | Persist all orders to `orders.txt` |
+| 7 | **Encrypt / Decrypt** | Caesar-cipher encrypt `orders.txt` → `encrypted_orders.txt`, or decrypt back |
 
-### 2. Platform
-- Windows-specific (uses Windows.h for console operations).
-- Requires ANSI color code support in terminal.
+---
 
-### 3. How to use 
-1. Compile the program with a C++ compiler (tested on Windows).
-2. Run the executable.
-3. Use the menu system to navigate features :
-    - First view available laptops (option 2).
-    - Then place an order (option 1).
-    - Manage orders with options 3-5.
+## 🗂️ Project Structure
+```
+.
+├── main.cpp          # Entry point – main menu loop
+├── Laptop.h          # Laptop class declaration
+├── Laptop.cpp        # Laptop class implementation (orders, display, file I/O)
+├── encryption.h      # encryptFile() declaration
+├── encryption.cpp    # Caesar cipher + file encrypt/decrypt logic
+├── utils.h           # Cross-platform utility declarations
+└── utils.cpp         # gotoxy, clear_screen, Beep, _getch, Sleep …
+```
+---
 
-## <mark> 📷 Screenshots 📷 </mark>
-### (Include sample screenshots of the interface if available).
+## 🛠️ Build & Run
+
+### macOS
+```bash
+g++ -o main main.cpp Laptop.cpp utils.cpp encryption.cpp -framework AudioToolbox && ./main
+```
+
+### Linux
+```bash
+g++ -o main main.cpp Laptop.cpp utils.cpp encryption.cpp && ./main
+```
+
+### Windows
+```bat
+g++ -o main.exe main.cpp Laptop.cpp utils.cpp encryption.cpp && main.exe
+```
+
+> **Requirements:** A C++11-compatible compiler (`g++` recommended). No external libraries needed (macOS uses the built-in `AudioToolbox` framework for the beep sound).
+
+---
+## 📋 Laptop Inventory (hardcoded, 15 models)
+ 
+| Brand   | Model               | CPU.         | RAM       | Storage    |Price (DH)|
+|:-------:|      :-------:      |    :-----:   |  :-----:  |:---------: |:--------:|
+| ASUS    | ZenBook 13          | i7-1065G7    | 8GB DDR4  | 512GB NVMe |  4 200   |
+| Samsung | Galaxy Book Pro     | i7-1165G7    | 16GB DDR4 | 512GB NVMe |  4 900   |
+| Huawei  | MateBook X          | i5-12500H    | 16GB DDR4 | 512GB NVMe |  6 500   |
+| ASUS    | VivoBook 15         | i3-1215U     | 12GB DDR4 | 512GB NVMe |  3 300   |
+| Dell    | Precision 5770      | i5-12700H    | 32GB DDR5 | 512GB NVMe |  12 500  |
+| MSI     | Stealth 18 Mercedes | Ultra 9-185H | 64GB DDR5 | 2TB NVMe   |  38 999  |
+| Apple   | MacBook Pro M1 2020 | M1 8-core    | 16GB DDR5 | 512GB NVMe |  8 300   |
+| Apple   | MacBook Air M1 2020 | M1 8-core    | 16GB DDR5 | 256GB NVMe |  7 000   |
+| ......  |  .................  | ............ | ......... | .......... | ........ |
+---
+
+## 🔐 Encryption
+
+The app uses a **Caesar cipher with a shift of 1** applied to alphabetic characters only.
+
+- **Encrypt:** reads `orders.txt` → writes `encrypted_orders.txt`  
+- **Decrypt:** reads `encrypted_orders.txt` → writes `decrypted_orders.txt`
+
+> ⚠️ The Caesar cipher is for learning purposes. Do not use it to protect sensitive real-world data.
+
+---
+
+## 📁 Runtime Files
+
+| File                   | Generated by                     |
+|        :------:        |          :-------------:         |
+| `orders.txt`           | "Save order to file" menu option |
+| `encrypted_orders.txt` | Encrypt option                   |
+| `decrypted_orders.txt` | Decrypt option                   |
+
+These files are created at runtime in the working directory and are excluded from version control (see `.gitignore`).
+
+---
+
+## 🖥️ Platform Notes
+
+- **Cursor positioning** (`gotoxy`) uses ANSI escape codes on Linux/macOS and `SetConsoleCursorPosition` on Windows.  
+- **Audio beep** uses `AudioToolbox` on macOS and `Beep()` on Windows; it is silent on Linux unless you add a backend.
+- **Terminal colors** require an ANSI-compatible terminal (default on macOS/Linux; use Windows Terminal or ConEmu on Windows).
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository  
+2. Create a feature branch: `git checkout -b feature/my-feature`  
+3. Commit your changes: `git commit -m "Add my feature"`  
+4. Push to the branch: `git push origin feature/my-feature`  
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open source. You are free to use, modify, and distribute it for educational purposes.
