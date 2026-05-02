@@ -111,6 +111,4 @@ These files are created at runtime in the working directory and are excluded fro
 
 This project is open source. You are free to use, modify, and distribute it for educational purposes.
 
-<h2>🎥 Demo Video</h2>
-
-https://github.com/user-attachments/assets/bf596504-4d4a-4166-9225-0b72b8281148
+https://github.com/Salah-Ou/Computer_Store_CPP/blob/cd7bc903e6086a3e381628ba618be1ef41cfbba7/2025-10-13%2016.53.02.mp4
