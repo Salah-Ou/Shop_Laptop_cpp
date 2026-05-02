@@ -113,4 +113,4 @@ This project is open source. You are free to use, modify, and distribute it for 
 
 <h2>🎥 Demo Video</h2>
 
-https://drive.google.com/file/d/1ZDEI2kraB2Mx3tP9BtVPE-ic3vx5KZTv/view?usp=share_link
+https://github.com/user-attachments/assets/bf596504-4d4a-4166-9225-0b72b8281148
