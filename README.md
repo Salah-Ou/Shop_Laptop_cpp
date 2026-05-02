@@ -110,5 +110,3 @@ These files are created at runtime in the working directory and are excluded fro
 ## 📄 License
 
 This project is open source. You are free to use, modify, and distribute it for educational purposes.
-
-https://github.com/Salah-Ou/Computer_Store_CPP/blob/cd7bc903e6086a3e381628ba618be1ef41cfbba7/2025-10-13%2016.53.02.mp4
